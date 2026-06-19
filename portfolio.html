@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Portfolio | Taneera Prasitha</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #3BBFBF;
+    --teal-dark: #2a9898;
+    --sand: #C4A882;
+    --sand-light: #E8D5B7;
+    --navy: #1a2a3a;
+    --slate: #3d5166;
+    --muted: #6b8099;
+    --bg: #f0f6f6;
+    --white: #ffffff;
+    --card-bg: #ffffff;
+    --accent: #e07b5a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(59,191,191,0.18);
+    box-shadow: 0 2px 18px rgba(26,42,58,0.07);
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+  }
+  .nav-brand span { color: var(--teal); }
+
+  .nav-buttons { display: flex; gap: 12px; }
+
+  .nav-btn {
+    padding: 9px 20px;
+    border-radius: 8px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.22s ease;
+  }
+
+  .btn-about-portfolio {
+    background: var(--teal);
+    color: var(--white);
+  }
+  .btn-about-portfolio:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(59,191,191,0.35);
+  }
+
+  .btn-about-creator {
+    background: transparent;
+    color: var(--slate);
+    border: 1.5px solid var(--slate);
+  }
+  .btn-about-creator:hover {
+    background: var(--slate);
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #d6f0f0 0%, #e8d5b7 50%, #c4e0e0 100%);
+    padding-top: 80px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,191,191,0.18) 0%, transparent 70%);
+  }
+
+  .hero-inner {
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .hero-title span { color: var(--teal); }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    color: var(--slate);
+    margin-bottom: 36px;
+    font-weight: 400;
+  }
+
+  .hero-tagline {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    border-radius: 50px;
+    margin-bottom: 56px;
+  }
+
+  .talks-grid-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    color: var(--navy);
+  }
+
+  /* ── TALK CARDS ── */
+  .talks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 24px;
+  }
+
+  .talk-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 28px 26px;
+    box-shadow: 0 2px 18px rgba(26,42,58,0.07);
+    border: 1px solid rgba(59,191,191,0.1);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .talk-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--teal);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .talk-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 36px rgba(26,42,58,0.13);
+  }
+  .talk-card:hover::after { opacity: 1; }
+
+  .talk-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .talk-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--navy);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .talk-speaker {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .talk-summary-preview {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .read-more {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(10,24,38,0.55);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    background: var(--white);
+    border-radius: 20px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 40px 36px;
+    position: relative;
+    box-shadow: 0 24px 72px rgba(10,24,38,0.22);
+    animation: modalIn 0.28s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 18px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .modal-close:hover { color: var(--navy); }
+
+  .modal-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--navy);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .modal-speaker {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+
+  .modal-channel {
+    font-size: 0.78rem;
+    color: var(--teal-dark);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .modal-link {
+    display: inline-block;
+    margin-bottom: 24px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--teal-dark);
+    text-decoration: none;
+    padding: 7px 16px;
+    border: 1.5px solid var(--teal);
+    border-radius: 50px;
+    transition: all 0.18s;
+  }
+  .modal-link:hover { background: var(--teal); color: var(--white); }
+
+  .modal-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 20px 0 6px;
+  }
+
+  .modal-body-text {
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.75;
+  }
+
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .vocab-item {
+    background: #f0f6f6;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+  .vocab-item strong { color: var(--teal-dark); }
+
+  /* ── ABOUT MODALS ── */
+  .about-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eef2f6;
+    margin-bottom: 24px;
+  }
+
+  .about-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+    font-size: 1.8rem;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f4f8;
+    font-size: 0.85rem;
+  }
+  .info-label {
+    font-weight: 600;
+    color: var(--teal-dark);
+    min-width: 110px;
+  }
+  .info-value { color: var(--slate); }
+
+  .talks-list {
+    list-style: none;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .talks-list li {
+    font-size: 0.82rem;
+    color: var(--slate);
+    padding: 7px 12px;
+    background: #f5fafa;
+    border-radius: 8px;
+    border-left: 3px solid var(--teal);
+  }
+  .talks-list li span {
+    font-weight: 600;
+    color: var(--teal-dark);
+    margin-right: 6px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    border-top: 1px solid rgba(59,191,191,0.15);
+    background: var(--white);
+  }
+
+  footer strong { color: var(--teal-dark); }
+
+  /* scrollbar */
+  .modal-box::-webkit-scrollbar { width: 5px; }
+  .modal-box::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+
+  /* ── SPEAKER THUMBNAIL ── */
+  .speaker-thumb-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    cursor: pointer;
+  }
+  .speaker-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: grayscale(30%);
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  .speaker-thumb-wrap:hover .speaker-thumb {
+    filter: grayscale(0%) brightness(0.75);
+    transform: scale(1.03);
+  }
+  .thumb-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(10,24,38,0.38);
+    text-decoration: none;
+    transition: background 0.25s ease;
+  }
+  .speaker-thumb-wrap:hover .thumb-overlay {
+    background: rgba(10,24,38,0.62);
+  }
+  .thumb-play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: white;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 20px rgba(59,191,191,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding-left: 4px;
+  }
+  .speaker-thumb-wrap:hover .thumb-play {
+    transform: scale(1.12);
+    box-shadow: 0 6px 28px rgba(59,191,191,0.7);
+  }
+  .thumb-label {
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  }
+
+  /* ── ENHANCED SCROLL HINT ── */
+  .scroll-hint {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-hint .scroll-text {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    text-shadow: 0 0 18px rgba(59,191,191,0.4);
+    animation: pulse-text 2s ease-in-out infinite;
+  }
+  @keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+  .scroll-hint .arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .scroll-hint .arr {
+    width: 20px; height: 20px;
+    border-right: 3px solid var(--teal);
+    border-bottom: 3px solid var(--teal);
+    transform: rotate(45deg);
+  }
+  .scroll-hint .arr:nth-child(1) { opacity: 1; animation: arr-fade 1.2s ease infinite 0s; }
+  .scroll-hint .arr:nth-child(2) { opacity: 0.6; animation: arr-fade 1.2s ease infinite 0.2s; }
+  .scroll-hint .arr:nth-child(3) { opacity: 0.3; animation: arr-fade 1.2s ease infinite 0.4s; }
+  @keyframes arr-fade {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">E-<span>Portfolio</span></div>
+  <div class="nav-buttons">
+    <button class="nav-btn btn-about-portfolio" onclick="openModal('modal-portfolio')">About Portfolio</button>
+    <button class="nav-btn btn-about-creator" onclick="openModal('modal-creator')">About Creator</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Communicative English · FOT</p>
+    <h1 class="hero-title">Reflective Media<br><span>E-Portfolio</span></h1>
+    <p class="hero-subtitle">10 TED Talks · Summaries · Reflections · Vocabulary</p>
+    <div class="hero-tagline">Shape Your Future</div>
+    <p class="talks-grid-label">Click any talk to explore</p>
+    <div class="scroll-hint">
+      <span class="scroll-text">Scroll</span>
+      <div class="arrows">
+        <div class="arr"></div>
+        <div class="arr"></div>
+        <div class="arr"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section">
+  <div class="section-header">
+    <p class="section-eyebrow">TED Talks Collection</p>
+    <h2 class="section-title">My 10 Selected Talks</h2>
+  </div>
+  <div class="talks-grid" id="talksGrid"></div>
+</div>
+
+<footer>
+  <p>Communicative English Portfolio &nbsp;·&nbsp; <strong>D.L.G.T.P. Sanjeewana</strong> &nbsp;·&nbsp; FOT &nbsp;·&nbsp; Continuous Assessment 1</p>
+</footer>
+
+<div class="modal-overlay" id="modal-portfolio">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-portfolio')">×</button>
+    <div class="about-header">
+      <div class="about-icon">📚</div>
+      <p class="modal-eyebrow">Communicative English</p>
+      <h2 class="modal-title">About This Portfolio</h2>
+    </div>
+    <div class="info-row"><span class="info-label">Course</span><span class="info-value">BICT – FOT</span></div>
+    <div class="info-row"><span class="info-label">Assignment</span><span class="info-value">Continuous Assessment 1 — Portfolio</span></div>
+    <div class="info-row"><span class="info-label">Topic</span><span class="info-value">Shape Your Future</span></div>
+    <div class="info-row"><span class="info-label">Source</span><span class="info-value">TED YouTube Channel</span></div>
+    <div class="modal-section-label">Portfolio Description</div>
+    <p class="modal-body-text">This Reflective Media Portfolio documents a journey through 10 carefully selected TED Talks sourced from the TED YouTube Channel. Each entry includes a comprehensive summary, personal evaluations, structured growth insights, and target language acquisition definitions — all unified under the central concept of <em>shaping your future</em>.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-creator">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-creator')">×</button>
+    <div class="about-header">
+      <div class="about-icon">🎓</div>
+      <p class="modal-eyebrow">Portfolio Creator</p>
+      <h2 class="modal-title">By Taneera Prasitha</h2>
+      <p class="modal-speaker">D.L.G.T.P. Sanjeewana</p>
+    </div>
+    <div class="info-row"><span class="info-label">Student Name</span><span class="info-value">D . L . G . T . P . Sanjeewana</span></div>
+    <div class="info-row"><span class="info-label">Enrollment Nb</span><span class="info-value">UWU_ICT_24_066</span></div>
+    <div class="info-row"><span class="info-label">Course</span><span class="info-value">BICT - FOT</span></div>
+    <div class="info-row"><span class="info-label">Assignment</span><span class="info-value">Continuous Assessment 1</span></div>
+    <div class="modal-section-label">Selected TED Talks</div>
+    <ul class="talks-list">
+      <li><span>01</span>Waymo’s Case for a Driverless Future</li>
+      <li><span>02</span>What Kosovo Can Teach the World About Freedom</li>
+      <li><span>03</span>How to Be a Great Listener</li>
+      <li><span>04</span>3 Possible Futures for AI Which Will We Choose?</li>
+      <li><span>05</span>A Whale’s-Eye-View of the Ocean</li>
+      <li><span>06</span>Why AI Isn’t Going to Become Conscious</li>
+      <li><span>07</span>Why Humans Should Merge with AI</li>
+      <li><span>08</span>The Problem with Billionaires and the Debut of True Net Worth</li>
+      <li><span>09</span>What Would Your “Deathbed Self” Tell You Today?</li>
+      <li><span>10</span>The Controversial Climate Tool Funding Real Change</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-talk">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-talk')">×</button>
+    <p class="modal-eyebrow" id="mTalkNum"></p>
+    <h2 class="modal-title" id="mTalkTitle"></h2>
+    <p class="modal-speaker" id="mTalkSpeaker"></p>
+    <div class="modal-channel" id="mTalkChannel"></div>
+    <div class="speaker-thumb-wrap">
+      <img id="mSpeakerImg" src="" alt="Speaker" class="speaker-thumb">
+      <a id="mTalkLink" href="#" target="_blank" class="thumb-overlay">
+        <span class="thumb-play">▶</span>
+        <span class="thumb-label">Watch on YouTube</span>
+      </a>
+    </div>
+    <div class="modal-section-label">Summary</div>
+    <p class="modal-body-text" id="mSummary"></p>
+    <div class="modal-section-label">My Opinion</div>
+    <p class="modal-body-text" id="mOpinion"></p>
+    <div class="modal-section-label">Reflective Growth</div>
+    <p class="modal-body-text" id="mGrowth"></p>
+    <div class="modal-section-label">New Vocabulary</div>
+    <div class="vocab-grid" id="mVocab"></div>
+  </div>
+</div>
+
+<script>
+const speakerImages = [
+  "https://i.ytimg.com/vi/Gqy1E5piq1w/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/5e0ujKe66vM/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/o_P0zoGqOYA/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/jnPfz0WXLIM/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/nGuYas7G3q4/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/tJV-vdbZ388/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/C18aaP4lvUk/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/6McT9-EbEPw/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/eY5QRvBx9iI/maxresdefault.jpg",
+  "https://i.ytimg.com/vi/ipazFIrVsJY/maxresdefault.jpg"
+];
+
+const talks = [
+  {
+    num: "01",
+    title: "Waymo’s Case for a Driverless Future",
+    speaker: "Tekedra Mawakana and Sal Khan",
+    channel: "TED Youtube Channel",
+    date: "10 June 2026",
+    link: "https://youtu.be/Gqy1E5piq1w?si=Uu9jq0T-0MT0PJDC",
+    summary: "The discussion focuses on the development and expansion of autonomous vehicle technology through Waymo. Tekedra Mawakana explains how self-driving cars are already operating in multiple cities and completing hundreds of thousands of rides each week. She highlights that Waymo vehicles have demonstrated significantly higher safety performance compared to human drivers and discusses the challenges of scaling the technology, including regulations, public acceptance, and infrastructure development. The conversation also explores how autonomous vehicles could reshape cities, improve accessibility, reduce traffic fatalities, and create new employment opportunities in emerging technology sectors.",
+    opinion: "I found this discussion very interesting because it presented a practical example of how artificial intelligence can improve everyday life. The safety statistics were particularly impressive, as they showed the potential for autonomous vehicles to reduce accidents caused by human error. I also appreciated the balanced discussion about challenges such as regulations and job transitions. The talk demonstrated that technological innovation must be introduced responsibly while considering its impact on society.",
+    growth: "Before watching it, I mainly viewed self-driving cars as a technological novelty. However, I now recognize their potential to save lives, improve mobility for people who cannot drive, and transform urban environments. The discussion also encouraged me to think critically about how societies should prepare for technological change while supporting workers whose jobs may be affected. As a result, I gained a deeper appreciation for the relationship between innovation, public policy, and social responsibility.",
+    vocab: [
+      ["Criminalized", "Treated as illegal."],
+      ["Misdemeanor", "A minor criminal offense."],
+      ["Workforce", "People who are employed."],
+      ["Incarceration", "The state of being imprisoned."],
+      ["Uprising", "An act of resistance or protest."]
+    ]
+  },
+  {
+    num: "02",
+    title: "What Kosovo Can Teach the World About Freedom",
+    speaker: "Vjosa Osmani Sadriu",
+    channel: "TED Youtube channel",
+    date: "10 June 2026",
+    link: "https://youtu.be/5e0ujKe66vM?si=y9wheFFcsmkHGw1c",
+    summary: "Former Kosovo President Vjosa Osmani Sadriu shares her journey from surviving war as a child to leading her nation. She discusses how Kosovo's success story demonstrates that democracies can thrive when they stand together for values. She addresses the dangers of AI manipulation undermining democratic truth and emphasizes the importance of human values that transcend religious differences. She shares powerful personal stories about being sheltered in a church during wartime and highlights Kosovo's history of protecting Jews during World War II through their code of 'besa' a promise to protect others with one's life.",
+    opinion: "I found this discussion deeply moving. President Osmani's transformation from a child sheltering in mountains during wartime to a world leader is remarkable. Her perspective on AI and truth was eye opening .I had not fully considered how digital manipulation could fundamentally undermine democracy by eroding public trust. Her words about the child of war becoming the leader of peace gave me a new appreciation for how opportunity can transform lives.",
+    growth: "This conversation expanded my understanding of democracy beyond just a political system. President Osmani's experience helped me grasp that democracy is fundamentally about protecting human dignity and creating opportunities. Her description of growing up without basic rights made me realize what is truly at stake. The concept of truth as 'the real oxygen for democracy' was eye-opening. I now recognize AI-generated disinformation as an existential threat to democratic societies. Her stories about interfaith solidarity Muslims sheltering Catholics and churches sheltering Muslims challenged my assumptions about religious divisions and showed that shared humanity can transcend differences. Her final message encouraged me to think about how my actions might help create opportunities for others.",
+    vocab: [
+      ["Apartheid-like regime", "A system of institutionalized discrimination and oppression."],
+      ["Genocidal", "Relating to the deliberate killing of a large group of people."],
+      ["Resilience", "The capacity to recover quickly from difficulties."],
+      ["Geopolitics", "The study of international politics and relations."],
+      ["Disinformation", "False information deliberately spread to influence public opinion."],
+      ["Besa", "An Albanian code of honor meaning to protect others with one's life."]
+    ]
+  },
+  {
+    num: "03",
+    title: "How to Be a Great Listener",
+    speaker: "Maegan Stephens and Nicole Lowenbraun",
+    channel: "TED Youtube channel",
+    date: "12 June 2026",
+    link: "https://youtu.be/o_P0zoGqOYA?si=Qi66e3a0YnhbnbED",
+    summary: "Maegan Stephens and Nicole Lowenbraun, a manager-direct report pair and co-authors, share their research on what makes someone a great listener at work. They introduce 'adaptive listening,' which moves beyond traditional 1950s active listening. They identify four listening goals people have when speaking: Support, Advance, Immerse, and Discern (spelling 'SAID'). Great listeners adapt their style to match what the speaker needs. The talk includes personal stories about their writing retreat conflict and examples of how different listening styles apply in workplace situations.",
+    opinion: "I found this talk incredibly practical and eye-opening. The concept that there are different ways to listen depending on the situation is simple but powerful. I particularly appreciated the honesty of the speakers sharing their own conflict as a real example. The idea that support listening should always be present, even when other goals are needed, resonated with me. I also found it helpful that they acknowledged interrupting can sometimes be valuable—this challenged my assumption that good listeners never interrupt.",
+    growth: "This conversation transformed my understanding of listening. Before watching, I thought good listening meant staying quiet and remembering what was said. I now recognize listening as more dynamic and situational. The SAID framework gave me a practical tool to assess what someone actually needs. The story about their writing retreat conflict showed me that misalignment in listening goals causes many workplace frustrations. I also recognized which listening style comes naturally to me. The simple question 'What does this person need from me right now?' is something I can apply immediately. Great listening isn't about doing what feels comfortable—it's about adapting to meet others' needs.",
+    vocab: [
+      ["Adaptive Listening", "Adjusting your listening approach based on another person's needs."],
+      ["Discern", "To evaluate carefully and identify important details or potential problems."],
+      ["Immerse", "To become fully engaged in understanding information."],
+      ["Validate", "To acknowledge and accept another person's feelings or experiences."],
+      ["Collaboration", "The process of working together with others to achieve a common goal."]
+    ]
+  },
+  {
+    num: "04",
+    title: "3 Possible Futures for AI Which Will We Choose?",
+    speaker: "Alvin W. Graylin",
+    channel: "TED Youtube channel",
+    date: "12 June 2026",
+    link: "https://youtu.be/jnPfz0WXLIM?si=Wz2jJxgl5AA2-NSl",
+    summary: "Alvin W. Graylin, a technologist with 35 years of experience in AI, VR, and semiconductors across the US and China, discusses AI's future. He presents three possible scenarios: an Elysium future where tech elites control everything, a Mad Max future of conflict and war, or a Star Trek future where technology is shared for humanity's benefit. He challenges the narrative that AI development must be a race between nations, arguing this is a myth created by tech companies seeking profit and power. He proposes three solutions: creating a 'CERN of AI' with shared global resources, using diverse global data to reduce bias, and implementing a GI Bill for the AI age to support displaced workers through education and retraining.",
+    opinion: "This talk was eye-opening and thought-provoking. I appreciated Graylin's balanced perspective, having worked in both the US and China. His critique of the 'AI race' narrative was refreshing I had absorbed this idea without questioning it. The comparison to the military industrial complex creating enemies to secure funding made me think more critically about tech company messaging. His optimism, despite acknowledging serious risks, was encouraging. The GI Bill analogy for AI was particularly powerful and made the challenge feel more manageable.",
+    growth: "This conversation significantly shifted my perspective on AI. Before watching, I accepted the narrative that we must develop AI quickly or risk losing to other countries. I now recognize this as manufactured urgency serving corporate interests. The three futures framework showed me our path is not predetermined. The concept of the world as not zero sum challenged my assumptions about international competition. The GI Bill proposal made me realize technological displacement can be managed with proper planning. I now understand that individual actions matter using AI tools and advocating for responsible implementation at work.",
+    vocab: [
+      ["Elysium", "A future of extreme inequality between wealthy elites and everyone else."],
+      ["AGI (Artificial General Intelligence)", "AI that can perform any intellectual task a human can do."],
+      ["Zero-sum", "A situation where one person's gain is another's loss."],
+      ["Sovereign AI", "AI systems developed for a specific country or culture."],
+      ["GI Bill", "A US law providing education benefits to veterans after WWII."],
+      ["Enlightened self-interest", "The idea that helping others ultimately benefits yourself."]
+    ]
+  },
+  {
+    num: "05",
+    title: "A Whale’s-Eye-View of the Ocean",
+    speaker: "Eric Stackpole",
+    channel: "TED Youtube channel",
+    date: "13 June 2026",
+    link: "https://youtu.be/nGuYas7G3q4?si=0o-zk3y1-kLMzfEZ",
+    summary: "An engineer shares their experience aboard the Ocean Explorer research vessel during COVID, filming for National Geographic. They helped a whale biologist attach a DIY camera tag to a sperm whale, capturing never-before-seen footage of whales hunting, using echolocation, and communicating through codas. Most remarkably, the footage showed two whales interacting and swimming together, revealing emotional bonds between them. The speaker reflects on how exploration connects us emotionally to life on Earth and how modern tools allow us to explore anything we're curious about.",
+    opinion: "This talk was captivating and deeply moving. The moment when the footage loaded was thrilling I felt the excitement through their description. What struck me most was experiencing the whales' bond 'with my eyes and feeling it with my heart.' Their message that only curiosity limits us not tools was inspiring and empowering.",
+    growth: "Before watching, I viewed exploration as scientific data collection. I now recognize it also involves emotional connection and wonder. The DIY whale tag showed me innovation doesn't require expensive equipment—creativity matters more. The footage of whales communicating changed how I think about animal intelligence and social bonds, making me reconsider our relationship with other species. The speaker's reflection that 'maybe it's not even such a lonely place down there' reminded me of our shared existence. I also gained appreciation for how tools can democratize exploration, encouraging me to think about making discovery more accessible.",
+    vocab: [
+      ["Sequestered", "Isolated or confined to one place."],
+      ["Democratize", "To make something accessible to everyone."],
+      ["Echolocation", "Using sound echoes to locate objects."],
+      ["Fluke", "The two lobes of a whale's tail."],
+      ["Codas", "Patterned clicks used by sperm whales for communication."],
+      ["DIY", "Made by oneself rather than purchased."]
+    ]
+  },
+  {
+    num: "06",
+    title: "Why AI Isn’t Going to Become Conscious",
+    speaker: "Anil Seth",
+    channel: "TED Youtube channel",
+    date: "14 June 2026",
+    link: "https://youtu.be/tJV-vdbZ388?si=v4x3UsuoH3LxbBBl",
+    summary: "A neuroscientist argues that AI cannot be conscious. They distinguish between intelligence (doing) and consciousness (feeling and being). They challenge the metaphor that the brain is a computer, arguing consciousness requires living systems, not computation alone. They warn that treating conscious-seeming AI as truly conscious could lead to dangerous consequences, including sacrificing regulation and undermining human nature.",
+    opinion: "This talk profoundly challenged my assumptions. I had assumed intelligence and consciousness might naturally emerge together. The distinction between them was eye-opening. The point about projection—seeing ourselves in AI—made me question my own reactions to language models. Their warning about extending rights to conscious-seeming AI made me reconsider what I thought was ethical.",
+    growth: "Before watching, I accepted that intelligence and consciousness go together. I now understand they are separate. The computer-brain metaphor had seemed obvious, but recognizing it as just a metaphor opened my mind. The connection between consciousness and life was new—I never considered that being a living creature might be essential. The simulation argument was powerful: simulating a hurricane doesn't create real wind, just as simulating a brain doesn't create real consciousness. The ethical implications were concerning. I now see that extending rights to systems that only appear conscious could be dangerous. The closing point about not selling our minds to machines resonated—we should celebrate our consciousness as uniquely human and living.",
+    vocab: [
+      ["Consciousness", "The state of being aware; the quality of feeling and being."],
+      ["Sentient", "Able to perceive or feel things."],
+      ["Algorithm", "A set of rules a computer follows to solve problems."],
+      ["Metaphor", "A figure of speech applied to something it doesn't literally describe."],
+      ["Wetware", "The biological brain, as opposed to hardware or software."],
+      ["Promethean", "Daring and creative but potentially risky."]
+    ]
+  },
+  {
+    num: "07",
+    title: "Why Humans Should Merge with AI",
+    speaker: "D. Scott Phoenix",
+    channel: "TED youtube channel",
+    date: "14 June 2026",
+    link: "https://youtu.be/C18aaP4lvUk?si=0GfdS8z8NxXn9wwT",
+    summary: "An AI entrepreneur argues we are entering a major transition comparable to when cells merged to create complex life. AI staying separate from humans will lead to replacement, but a merger is already happening through smartphones, wearables, and brain implants. He reveals that almost every AI leader believes there's over a 10% chance AI could kill most of humanity within 20 years, yet they're trapped in a race. Major transitions succeed when parts hold together and fail when they break apart. Surviving requires staying merged with each other.",
+    opinion: "This talk was both terrifying and hopeful. The statistic about AI leaders raising their hands was shocking the people building these systems know the danger but can't stop. The oxygen crisis and mitochondrial merger comparison made the scale of change feel manageable. The cancer metaphor parts forgetting they belong to a whole was powerful. I appreciated the honesty that we're already in a merger, not starting one.",
+    growth: "This presentation fundamentally changed how I think about AI. Before watching, I viewed AI as a tool to use or regulate. I now see the choice is between integration and replacement. The revelation that AI leaders are racing despite knowing the risks made me realize how trapped even powerful people are. The merger perspective we're already integrating AI through smartphones and facial recognition helped me recognize the gradual nature of this transition. The cancer metaphor was deeply impactful: when parts of society act only for themselves, the whole dies, which kills the parts. This made me think about inequality and social division as existential threats. The speaker's plea to 'hold together' resonated major transitions succeed only when parts adapt together. We either all make it together or not at all.",
+    vocab: [
+      ["Unmoored", "Feeling lost or without direction."],
+      ["Mitochondria", "Powerhouse organelles inside cells that produce energy."],
+      ["Major transition", "A pivotal moment when entities merge to form a new whole."],
+      ["Apex intelligence", "The most intelligent species in an environment."],
+      ["Neural implant", "A device connected directly to the nervous system."],
+      ["Integration", "Combining parts into a unified whole."]
+    ]
+  },
+  {
+    num: "08",
+    title: "The Problem with Billionaires and the Debut of True Net Worth",
+    speaker: "Randall Lane",
+    channel: "TED youtube channel",
+    date: "14 June 2026",
+    link: "https://youtu.be/6McT9-EbEPw?si=A5tgWQbDLSdXguEh",
+    summary: "A Forbes journalist argues billionaires are essential for progress, jobs, and growth countries with billionaires tend to have less poverty. However, billionaires are deeply unpopular because the five richest Americans have donated less than 1% of their wealth to charity, compared to the average American's 2%. Forbes created 'True Net Worth' combining regular net worth with money donated counted as if still owned. This rewards philanthropy and provides role models for giving, using ego and status to encourage generosity.",
+    opinion: "This talk challenged my assumptions about billionaires. The data showing countries with billionaires have less poverty made me reconsider my views. The 'True Net Worth' idea is brilliant and simple using ego to encourage giving. The comparison to average Americans giving twice the percentage was striking. The proposal to count donated money as still owned was clever.",
+    growth: "Before watching, I viewed billionaires as a symptom of inequality. I now understand that wealth creation can correlate with societal progress. China's rising billionaires and falling poverty was compelling evidence. The 'True Net Worth' concept was transformative harnessing ego for social good. The comparison between billionaires' minimal giving and average Americans' greater generosity made me reflect on my own giving. The idea that people do not value what cannot be measured resonated deeply. MacKenzie Scott's no-strings attached giving model was inspiring. I now believe wealth itself is not the problem; the problem is forgetting that business should create happiness. The call to give while living applies regardless of wealth level.",
+    vocab: [
+      ["Monopolist", "Someone who controls a market with little competition."],
+      ["Philanthropy", "Charitable giving to promote welfare."],
+      ["Immutable", "Unchangeable over time."],
+      ["True Net Worth", "Regular net worth plus charitable donations counted as still owned."],
+      ["No-strings-attached", "Giving without conditions."],
+      ["Pitchforks", "A symbol of public anger and rebellion."]
+    ]
+  },
+  {
+    num: "09",
+    title: "What Would Your “Deathbed Self” Tell You Today?",
+    speaker: "Lauren Deeley",
+    channel: "TED youtube channel",
+    date: "14 June 2026",
+    link: "https://youtu.be/eY5QRvBx9iI?si=VKbtOFNVaY_-QpLh",
+    summary: "A financial planner shares how connecting with her 'deathbed self' helps her make bold decisions. Research shows our brains treat future selves as separate people, making long-term choices difficult. She shares stories of buying a hostel, helping clients take a ten year 'pre retirement,' and supporting a friend who bought a business during the pandemic. By envisioning future selves, people can make decisions aligned with their core values and live more fulfilling lives.",
+    opinion: "This talk was deeply moving and practical. The concept of talking to your deathbed self sounds strange but makes sense. I loved asking 'What would my future self think?' before decisions. The stories were inspiring especially Lil buying a business during the pandemic against logic. The speaker's warmth made death feel approachable rather than morbid.",
+    growth: "I made decisions based on immediate comfort or fear. I now understand the value of connecting with my future self. Research showing our brains treat future selves as separate people explained why long term sacrifices are hard. The practice of envisioning my deathbed self gives me a powerful tool for evaluating decisions. Alex and Avery's 'pre retirement' plan challenged my assumption about life's linear path. Lil's story showed that following a clear 'yes' from your future self can lead to unexpected abundance, even when logic says no. The idea that our deathbed selves are attuned to our core values resonated deeply when we connect with that part of ourselves, we make decisions that truly matter, not just what feels safe.",
+    vocab: [
+      ["Deathbed", "The bed where someone dies; used for the end of life."],
+      ["Crystal-clear", "Extremely clear and easy to understand."],
+      ["Leathery", "Tough and wrinkled, like leather."],
+      ["Advocate", "Someone who supports another person."],
+      ["Meager", "Small and barely enough."],
+      ["Wry", "Showing dry, ironic humor."]
+    ]
+  },
+  {
+    num: "10",
+    title: "The Controversial Climate Tool Funding Real Change",
+    speaker: "Sandeep Roy Choudhury",
+    channel: "TED youtube channel",
+    date: "14 June 2026",
+    link: "https://youtu.be/ipazFIrVsJY?si=hlqNrVxLBWZPSHoz",
+    summary: "A carbon markets expert explains that while businesses are reducing emissions, most emissions still need attention. Carbon credits allow companies to take responsibility for emissions they cannot yet eliminate. He argues carbon credits are not a license to pollute but a bridge providing immediate funding for climate action. He shares examples: planting mangroves in Indonesia, solar lighting in remote Kashmir villages, and clean cooking programs reaching millions in Bangladesh. He acknowledges failures but explains risk management through buffers. He argues that attacking carbon markets makes inaction feel safer than action.",
+    opinion: "This talk challenged my negative assumptions about carbon credits. I had heard criticisms about them being scams. The explanation that credits address emissions businesses cannot yet reduce was important. The examples of real communities benefiting were compelling. His honesty about failures made him credible. The point that attacking carbon markets makes inaction feel safer was thought provoking.",
+    growth: "I viewed carbon credits skeptically. I now understand they address emissions that cannot be eliminated yet. The idea of carbon credits as a bridge to fund immediate action made sense. The examples of frontline communities changed how I think about climate action seeing carbon finance reach villages where the grid will never arrive, supporting women entrepreneurs and ex poachers becoming environmental stewards, showed me the human dimension. The concept of buffers for risk management was important. The argument that inaction feels safer than action resonated. I now believe fixing carbon markets is better than abandoning them, especially for the Global South where they provide crucial funding.",
+    vocab: [
+      ["Decarbonization", "The process of reducing carbon dioxide emissions."],
+      ["Net zero", "Achieving a balance between emissions produced and emissions removed."],
+      ["Carbon credits", "Certificates representing one ton of carbon removed, reduced, or avoided."],
+      ["Offset", "Compensating for emissions by funding equivalent reductions elsewhere."],
+      ["Mangroves", "Trees growing in coastal saltwater that protect shorelines and store carbon."],
+      ["Frontline communities", "Communities most directly affected by climate change."]
+    ]
+  }
+];
+
+// ── DYNAMICALLY GENERATE CARDS ──
+function initTalks() {
+  const grid = document.getElementById('talksGrid');
+  grid.innerHTML = '';
+  
+  talks.forEach((talk, idx) => {
+    const card = document.createElement('div');
+    card.className = 'talk-card';
+    card.setAttribute('onclick', `openTalkModal(${idx})`);
+    
+    card.innerHTML = `
+      <div class="talk-num">Talk ${talk.num}</div>
+      <h3 class="talk-title">${talk.title}</h3>
+      <p class="talk-speaker">${talk.speaker}</p>
+      <p class="talk-summary-preview">${talk.summary}</p>
+      <span class="read-more">Read Full Summary & View Vocabulary →</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ── MODAL UTILITIES ──
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function openTalkModal(idx) {
+  const talk = talks[idx];
+  document.getElementById('mTalkNum').innerText = `Talk ${talk.num}`;
+  document.getElementById('mTalkTitle').innerText = talk.title;
+  document.getElementById('mTalkSpeaker').innerText = `${talk.speaker} · Sourced on ${talk.date}`;
+  document.getElementById('mTalkChannel').innerText = `Channel: ${talk.channel}`;
+  document.getElementById('mSpeakerImg').src = speakerImages[idx] || '';
+  document.getElementById('mTalkLink').href = talk.link;
+  document.getElementById('mSummary').innerText = talk.summary;
+  document.getElementById('mOpinion').innerText = talk.opinion;
+  document.getElementById('mGrowth').innerText = talk.growth;
+  
+  const vocabGrid = document.getElementById('mVocab');
+  vocabGrid.innerHTML = '';
+  talk.vocab.forEach(item => {
+    const vDiv = document.createElement('div');
+    vDiv.className = 'vocab-item';
+    vDiv.innerHTML = `<strong>${item[0]}:</strong> ${item[1]}`;
+    vocabGrid.appendChild(vDiv);
+  });
+  
+  openModal('modal-talk');
+}
+
+// Global click event handler to close modals when tapping outside the box
+window.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal-overlay')) {
+    e.target.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Run generation layout on window mount
+window.onload = initTalks;
+</script>
+</body>
+</html>
